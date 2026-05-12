@@ -6,7 +6,8 @@ const skills = [
   { name: 'HTML & CSS', color: '#E34F26' },
   { name: 'Vite', color: '#646CFF' },
   { name: 'Git', color: '#F05032' },
-  { name: 'REST APIs', color: '#00bb7c' }
+  { name: 'REST APIs', color: '#00bb7c' },
+  { name: 'Node.js', color: '#00bb7c' }
 ];
 
 export default function About() {
