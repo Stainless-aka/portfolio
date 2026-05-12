@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Godwin Inalegwu Ayuba | Frontend Developer</title>
-  <meta name="description" content="Frontend Developer crafting high-performance, clean, and user-friendly web experiences with React.">
+  <title>Godwin Inalegwu Ayuba | Full-Stack Developer & Artist</title>
+  <meta name="description" content="Full-Stack Developer crafting high-performance web experiences with Next.js, TypeScript, and AI integration.">
   <meta name="theme-color" content="#0a0a0c" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,7 @@
       color: #fff;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      height: 100%;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -48,14 +49,12 @@
       100% { transform: scale(1.1) translate(2%, 2%); }
     }
 
-    /* Fancy Loading State */
-    #root:empty {
+    /* Fancy Loading State - Shows until React Mounts */
+    #root {
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      width: 100vw;
     }
 
     .loader-content {
