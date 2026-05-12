@@ -15,8 +15,6 @@ export default function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // Prevent scrolling when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : 'unset'
   }, [menuOpen])
@@ -180,14 +178,14 @@ const styles = {
     fontWeight: 600,
   },
   burger: {
-    display: 'flex', // This will be hidden/shown via CSS media query implicitly or JS
+    display: 'flex',
     flexDirection: 'column',
     gap: '6px',
     background: 'none',
     border: 'none',
     cursor: 'pointer',
     padding: '10px',
-    zIndex: 1001, // Above the menu
+    zIndex: 1001,
   },
   burgerLine: {
     display: 'block', width: '25px', height: '2px',

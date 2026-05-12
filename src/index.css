@@ -11,12 +11,8 @@
   --radius: 16px;
   --max-w: 1100px;
   --nav-height: 70px;
-  
-  /* Mobile-specific spacing variables */
   --section-padding: 5rem 1.5rem;
 }
-
-/* Base Resets */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -27,7 +23,6 @@ html {
   scroll-behavior: smooth;
   scrollbar-color: var(--accent) var(--bg);
   scrollbar-width: thin;
-  /* Prevent text size adjustment after orientation change in iOS */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -38,11 +33,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  /* Better tap handling on mobile */
   -webkit-tap-highlight-color: transparent;
 }
-
-/* Container Utility */
 section {
   width: 100%;
   max-width: var(--max-w);
@@ -50,18 +42,14 @@ section {
   padding: var(--section-padding);
   animation: fadeIn 0.8s ease-out forwards;
 }
-
-/* Typography with Fluid Sizing */
 h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); }
 h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
 h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
 
 p {
   font-size: clamp(1rem, 2vw, 1.125rem);
-  max-width: 65ch; /* Optimal line length for readability */
+  max-width: 65ch;
 }
-
-/* Background Effects */
 body::before {
   content: "";
   position: fixed;
@@ -72,47 +60,31 @@ body::before {
   pointer-events: none;
   z-index: 9999;
 }
-
-/* Link and Interaction Styles */
 a {
   color: inherit;
   text-decoration: none;
   transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
   display: inline-block; /* Allows transform to work on links */
 }
-
-/* Mobile-First Media Queries */
-
-/* Tablet & Smaller (Max 768px) */
 @media (max-width: 768px) {
   :root {
     --section-padding: 4rem 1.25rem;
     --nav-height: 60px;
   }
-
-  /* Grid layouts should stack by default */
   .grid-auto {
     grid-template-columns: 1fr !important;
   }
-
-  /* Prevent scrolling when mobile menu is open (using your JS logic) */
   body.menu-open {
     overflow: hidden;
   }
 }
-
-/* Small Phones (Max 480px) */
 @media (max-width: 480px) {
   :root {
     --section-padding: 3rem 1rem;
   }
-
-  /* Center headings on very small screens for better balance */
   .hero-text, .section-header {
     text-align: center;
   }
-
-  /* Stack buttons in hero/contact sections */
   .button-group {
     flex-direction: column;
     width: 100%;
@@ -123,8 +95,6 @@ a {
     text-align: center;
   }
 }
-
-/* Selection & Scrollbar */
 ::selection {
   background: rgba(99, 102, 241, 0.3);
   color: #fff;
@@ -136,8 +106,6 @@ a {
   background: var(--surface2);
   border-radius: 10px;
 }
-
-/* Utility Classes */
 .text-gradient {
   background: var(--accent-gradient);
   -webkit-background-clip: text;

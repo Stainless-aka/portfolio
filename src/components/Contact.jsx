@@ -60,21 +60,21 @@ const contactInfo = [
     label: 'Email',
     value: 'ayuskid15@email.com',
     link: 'mailto:ayuskid15@email.com',
-    color: '#6366f1' // Indigo
+    color: '#6366f1'
   },
   {
     icon: '⚡',
     label: 'GitHub',
     value: 'Stainless-aka',
     link: 'https://github.com/Stainless-aka',
-    color: '#24292f' // Dark gray/black
+    color: '#24292f'
   },
   {
     icon: '🛡️',
     label: 'LinkedIn',
     value: 'Godwin Ayuba',
     link: 'https://ng.linkedin.com/in/godwin-inalegwu-ayuba-09b3153a7',
-    color: '#0077b5' // LinkedIn Blue
+    color: '#0077b5'
   },
 ];
 
