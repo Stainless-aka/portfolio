@@ -1,7 +1,7 @@
 /* Custom Properties & Modern Palette */
 :root {
   --bg: #0a0a0c;
-  --surface: rgba(26, 26, 36, 0.5); /* Semi-transparent for glassmorphism */
+  --surface: rgba(26, 26, 36, 0.6);
   --surface2: #1e1e2d;
   --accent: #6366f1;
   --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
@@ -11,6 +11,9 @@
   --radius: 16px;
   --max-w: 1100px;
   --nav-height: 70px;
+  
+  /* Mobile-specific spacing variables */
+  --section-padding: 5rem 1.5rem;
 }
 
 /* Base Resets */
@@ -22,9 +25,10 @@
 
 html {
   scroll-behavior: smooth;
-  /* Better scrollbar for modern browsers */
   scrollbar-color: var(--accent) var(--bg);
   scrollbar-width: thin;
+  /* Prevent text size adjustment after orientation change in iOS */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -34,81 +38,114 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Better tap handling on mobile */
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Subtle background grain effect */
+/* Container Utility */
+section {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--section-padding);
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Typography with Fluid Sizing */
+h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); }
+h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+
+p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  max-width: 65ch; /* Optimal line length for readability */
+}
+
+/* Background Effects */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0;
-  width: 100vw; height: 100vh;
+  width: 100%; height: 100%;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
   opacity: 0.04;
   pointer-events: none;
   z-index: 9999;
 }
 
-/* Selection Glow */
+/* Link and Interaction Styles */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+  display: inline-block; /* Allows transform to work on links */
+}
+
+/* Mobile-First Media Queries */
+
+/* Tablet & Smaller (Max 768px) */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 4rem 1.25rem;
+    --nav-height: 60px;
+  }
+
+  /* Grid layouts should stack by default */
+  .grid-auto {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Prevent scrolling when mobile menu is open (using your JS logic) */
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* Small Phones (Max 480px) */
+@media (max-width: 480px) {
+  :root {
+    --section-padding: 3rem 1rem;
+  }
+
+  /* Center headings on very small screens for better balance */
+  .hero-text, .section-header {
+    text-align: center;
+  }
+
+  /* Stack buttons in hero/contact sections */
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button-group a, .button-group button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Selection & Scrollbar */
 ::selection {
   background: rgba(99, 102, 241, 0.3);
   color: #fff;
 }
 
-/* Typography & Links */
-h1, h2, h3, h4 {
-  letter-spacing: -0.02em;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-/* Global Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-section {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-/* Responsive Handling for Navbar (matches your App.js logic) */
-@media (max-width: 768px) {
-  :root {
-    --max-w: 100%;
-  }
-  
-  /* Prevent scrolling when mobile menu is open */
-  body:has(nav[data-menu-open="true"]) {
-    overflow: hidden;
-  }
-}
-
-/* Scrollbar Styling for Chrome/Safari */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
   background: var(--surface2);
   border-radius: 10px;
-  border: 2px solid var(--bg);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
-}
-
-/* Utility Class for Gradient Text */
+/* Utility Classes */
 .text-gradient {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
