@@ -2,26 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Essential for Mobile: Ensures 1:1 scaling and prevents font-size jumping -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  
   <title>Godwin Inalegwu Ayuba | Frontend Developer</title>
   <meta name="title" content="Godwin Inalegwu Ayuba | Frontend Developer">
   <meta name="description" content="Frontend Developer crafting high-performance, clean, and user-friendly web experiences with React.">
+
+  <!-- Mobile Browser Styling -->
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root { background-color: #0a0a0c; }
-    body { margin: 0; background-color: #0a0a0c; }
+    /* 1. Global Reset for smooth mobile scrolling */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0c;
+      /* Prevents horizontal scroll on mobile if an element is too wide */
+      overflow-x: hidden; 
+      /* Makes touch interactions feel more native */
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 2. Responsive Pre-loader */
     #root:empty {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      width: 100vw;
       color: #6366f1;
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 1.5rem;
+      /* Using clamp for responsive text: min 1.2rem, scales with width, max 1.8rem */
+      font-size: clamp(1.2rem, 5vw, 1.8rem);
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* 3. Subtle pulse animation for the loader */
+    #root:empty::after {
+      content: "";
+      margin-top: 20px;
+      width: 40px;
+      height: 4px;
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #root:empty::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 4px;
+      background: #6366f1;
+      border-radius: 10px;
+      animation: loading-bar 1.5s infinite ease-in-out;
+      /* Adjust position to align with the bar */
+      transform: translateY(34px);
+    }
+
+    @keyframes loading-bar {
+      0% { transform: translate(-20px, 34px); }
+      50% { transform: translate(20px, 34px); }
+      100% { transform: translate(-20px, 34px); }
     }
   </style>
 </head>
