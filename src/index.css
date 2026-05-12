@@ -1,63 +1,114 @@
+/* Custom Properties & Modern Palette */
+:root {
+  --bg: #0a0a0c;
+  --surface: rgba(26, 26, 36, 0.5); /* Semi-transparent for glassmorphism */
+  --surface2: #1e1e2d;
+  --accent: #6366f1;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --text: #f3f4f6;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+  --radius: 16px;
+  --max-w: 1100px;
+  --nav-height: 70px;
+}
+
+/* Base Resets */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-:root {
-  --bg: #0f0f13;
-  --surface: #1a1a24;
-  --surface2: #22222f;
-  --accent: #7c6af7;
-  --accent2: #a78bfa;
-  --text: #e8e8f0;
-  --muted: #8888a8;
-  --border: #2e2e42;
-  --radius: 12px;
-  --max-w: 900px;
-}
-
 html {
   scroll-behavior: smooth;
+  /* Better scrollbar for modern browsers */
+  scrollbar-color: var(--accent) var(--bg);
+  scrollbar-width: thin;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Subtle background grain effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Selection Glow */
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #fff;
+}
+
+/* Typography & Links */
+h1, h2, h3, h4 {
+  letter-spacing: -0.02em;
 }
 
 a {
-  color: var(--accent2);
+  color: inherit;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-a:hover {
-  text-decoration: underline;
+/* Global Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive nav */
-@media (max-width: 600px) {
-  nav ul {
-    display: none;
+section {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Responsive Handling for Navbar (matches your App.js logic) */
+@media (max-width: 768px) {
+  :root {
+    --max-w: 100%;
   }
-  button[aria-label="Toggle menu"] {
-    display: flex !important;
+  
+  /* Prevent scrolling when mobile menu is open */
+  body:has(nav[data-menu-open="true"]) {
+    overflow: hidden;
   }
 }
 
-@media (min-width: 601px) {
-  button[aria-label="Toggle menu"] {
-    display: none !important;
-  }
+/* Scrollbar Styling for Chrome/Safari */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Card hover effect */
-@media (hover: hover) {
-  a[href^="#"]:hover,
-  a[href^="http"]:hover {
-    opacity: 0.8;
-  }
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface2);
+  border-radius: 10px;
+  border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Utility Class for Gradient Text */
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
