@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-// Unified the chip colors to use the indigo-purple scheme or clear high-contrast states
 const skills = [
   { name: 'React',        category: 'Frontend' },
   { name: 'JavaScript',   category: 'Language' },
@@ -14,32 +13,40 @@ const skills = [
 export default function About() {
   const cardRef = useRef(null);
 
-  /* subtle parallax tilt on skills card */
+  /* Subtle parallax tilt on skills card (Only runs on desktop pointer devices) */
   useEffect(() => {
     const el = cardRef.current;
-    if (!el) return;
+    if (!el || window.matchMedia('(max-width: 768px)').matches) return;
+
     const onMove = (e) => {
       const r = el.getBoundingClientRect();
       const x = ((e.clientX - r.left) / r.width  - 0.5) * 8;
       const y = ((e.clientY - r.top)  / r.height - 0.5) * 8;
       el.style.transform = `perspective(900px) rotateY(${x}deg) rotateX(${-y}deg)`;
     };
-    const onLeave = () => { el.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)'; };
+    
+    const onLeave = () => { 
+      el.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)'; 
+    };
+
     el.addEventListener('mousemove', onMove);
     el.addEventListener('mouseleave', onLeave);
-    return () => { el.removeEventListener('mousemove', onMove); el.removeEventListener('mouseleave', onLeave); };
+    
+    return () => { 
+      el.removeEventListener('mousemove', onMove); 
+      el.removeEventListener('mouseleave', onLeave); 
+    };
   }, []);
 
   return (
-    <section id="about" style={s.section}>
-      {/* Decorative background element matching Hero */}
-      <div style={s.blob}></div>
+    <section id="about" className="about-section" style={s.section}>
+      {/* Decorative background element */}
+      <div className="about-blob" style={s.blob}></div>
 
-      <div style={s.inner}>
+      <div className="about-inner" style={s.inner}>
 
         {/* ── LEFT: text column ── */}
-        <div style={s.textCol}>
-
+        <div className="about-text-col" style={s.textCol}>
           <div className="fade-in" style={s.badgeContainer}>
             <span style={s.dot}></span>
             <span style={s.badgeText}>Behind the Code</span>
@@ -70,8 +77,8 @@ export default function About() {
         </div>
 
         {/* ── RIGHT: skills card ── */}
-        <div style={s.skillsCol}>
-          <div ref={cardRef} style={s.card}>
+        <div className="about-skills-col" style={s.skillsCol}>
+          <div ref={cardRef} className="about-card" style={s.card}>
 
             <p style={s.cardLabel}>Technical Toolkit</p>
             <div style={s.cardRule} />
@@ -94,8 +101,8 @@ export default function About() {
             </div>
           </div>
 
-          {/* floating tag behind card matching Godwin's theme */}
-          <div style={s.floatingTag} aria-hidden="true">
+          {/* Floating tag behind card */}
+          <div className="about-floating-tag" style={s.floatingTag} aria-hidden="true">
             <span style={s.floatingNumber}>7</span>
             <span style={s.floatingLabel}>Skills</span>
           </div>
@@ -131,6 +138,7 @@ export default function About() {
         .btn-primary {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+          text-decoration: none;
         }
 
         .btn-primary:hover {
@@ -149,6 +157,62 @@ export default function About() {
           border-color: #6366f1 !important;
           transform: translateY(-2px);
           box-shadow: 0 6px 20px -8px #6366f1;
+        }
+
+        /* ── RESPONSIVE MEDIA QUERIES ── */
+        @media (max-width: 992px) {
+          .about-inner {
+            gap: 2.5rem !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .about-section {
+            padding: 4rem 1.5rem !important;
+            min-height: auto !important;
+          }
+          .about-inner {
+            grid-template-columns: 1fr !important;
+            gap: 3.5rem !important;
+          }
+          .about-text-col {
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .about-blob {
+            width: 320px !important;
+            height: 320px !important;
+            top: 10% !important;
+            left: 50% !important;
+          }
+          .about-card {
+            padding: 2rem 1.5rem !important;
+            transform: none !important; /* Disables unexpected static rotations on touch screen */
+          }
+          .about-floating-tag {
+            bottom: -0.5rem !important;
+            right: -0.5rem !important;
+            width: 70px !important;
+            height: 70px !important;
+          }
+          .about-floating-number {
+            font-size: 1.35rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-section {
+            padding: 3rem 1rem !important;
+          }
+          .btn-primary {
+            width: 100%;
+            justify-content: center;
+            box-sizing: border-box;
+          }
+          .sk-chip {
+            width: 100%; /* Spans chip list fully across narrow windows if desired */
+            justify-content: flex-start;
+          }
         }
       `}</style>
     </section>
@@ -188,8 +252,6 @@ const s = {
     maxWidth: '1100px',
     width: '100%',
   },
-
-  /* ── text column ── */
   textCol: {
     display: 'flex',
     flexDirection: 'column',
@@ -244,6 +306,7 @@ const s = {
   },
   actions: {
     marginTop: '0.5rem',
+    width: '100%'
   },
   btnPrimary: {
     display: 'inline-flex',
@@ -254,12 +317,10 @@ const s = {
     borderRadius: '0.75rem',
     fontWeight: 700,
     fontSize: '1rem',
-    textDecoration: 'none',
   },
-
-  /* ── skills column ── */
   skillsCol: {
     position: 'relative',
+    width: '100%'
   },
   card: {
     background: 'rgba(255, 255, 255, 0.7)',
@@ -320,8 +381,6 @@ const s = {
     paddingLeft: '0.25rem',
     borderLeft: '1px solid rgba(0, 0, 0, 0.1)',
   },
-
-  /* floating badge styling */
   floatingTag: {
     position: 'absolute',
     bottom: '-1rem',
